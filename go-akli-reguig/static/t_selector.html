@@ -9,7 +9,7 @@
     <meta name="author" content="akli reguig">
     <link rel="icon" href="img/favicon.ico">
 
-    <title>Tools</title>
+    <title>Tweet Selector</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -45,7 +45,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">areguig</a>
+            <a class="navbar-brand" href="/ts">Tweet Selector</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -62,7 +62,7 @@
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
+
               <li><a href="/cv">CV</a></li>
             </ul>
           </div><!--/.nav-collapse -->
@@ -72,13 +72,13 @@
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
         <div class="row">
-          <p>It's the end of your twitter constest and you have to select the winner? </p>
-          <p>Just enter a @handle to select by mention or a #hashtag to select by hashtag</p>
+          <p>It's the end of your twitter contest and you have to select the winner? </p>
+          <p>Enter a @handle to select by mention or a #hashtag to select by hashtag</p>
           <div class="col-lg-6">
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="@handle or #hashtag">
+              <input id="query" type="text" class="form-control" placeholder="@handle or #hashtag">
               <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Go!</button>
+                <button id="search" class="btn btn-default" type="button">Go!</button>
               </span>
             </div><!-- /input-group -->
           </div><!-- /.col-lg-6 -->
@@ -86,15 +86,36 @@
       </div>
 
     </div> <!-- /container -->
-
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
     <script src="js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
+    <script>
+    $(function(){
+       $('#search').on('click', function(e){
+           e.preventDefault(); // prevent the default click action
+           var q = $('#query').val();
+           if( !q.match('^#') &&  !q.match('^@')) {
+             alert('the input should start with # or @');
+             return;
+            }
+            console.log("query string "+ q)
+           $.ajax({
+               url: "/twitter/search?q="+q,
+               success: function (response) {
+                   alert(response);
+                   // ajax success callback
+               },
+               error: function (response) {
+                   alert('ajax failed');
+                   // ajax error callback
+               },
+           });
+       });
+   });
+   </script>
   </body>
 </html>
