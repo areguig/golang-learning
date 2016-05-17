@@ -28,8 +28,8 @@ func loadPage(title string) (*Page,error) {
 }
 
 
-// >>>>>>>>> Web stuff.
-// Renders the html template tmpl filled with p content
+// >>>>>>>>> Web stuff. 
+// Renders the html template tmpl filled with p content 
 // in the writer w
 func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 	t, _ := template.ParseFiles(tmpl+".html")
@@ -65,7 +65,7 @@ func saveHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w,r,"/view"+title,http.StatusFound)
 }
 
-// Main
+// Main 
 func main() {
 	http.HandleFunc("/view/",viewHandler)
 	http.HandleFunc("/edit/",editHandler)
@@ -73,3 +73,4 @@ func main() {
 	fmt.Println("Starting the server...")
 	http.ListenAndServe(":8080",nil)
 }
+

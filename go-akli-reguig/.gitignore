@@ -1,0 +1,5 @@
+/src/github.com/
+/src/google.golang.org/
+/bin/
+/pkg/
+.DS_Store

@@ -13,7 +13,7 @@ func init() {
 
 func twitterSearch(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
-	query := r.URL.Query().Get("q")
-	log.Debugf(ctx, "Twitter search ", string(query))
-	RequestHandler(w, r)
+	q := r.URL.Query().Get("q")
+	log.Debugf(ctx, "Twitter search ", string(q))
+
 }
