@@ -19,7 +19,37 @@
 
     <!-- Custom styles for this template -->
     <link href="css/navbar.css" rel="stylesheet">
+    <style>
+   #tweet iframe {
+     border: none !important;
+     box-shadow: none !important;
+   }
+    .modal {
+        display:    none;
+        position:   fixed;
+        z-index:    1000;
+        top:        0;
+        left:       0;
+        height:     100%;
+        width:      100%;
+        background: rgba( 255, 255, 255, .8 )
+                    url('img/loading.gif')
+                    50% 50%
+                    no-repeat;
+    }
 
+    /* When the body has the loading class, we turn
+       the scrollbar off with overflow:hidden */
+    body.loading {
+        overflow: hidden;
+    }
+
+    /* Anytime the body has the loading class, our
+       modal element will be visible */
+    body.loading .modal {
+        display: block;
+    }
+    </style>
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="js/ie-emulation-modes-warning.js"></script>
@@ -83,8 +113,12 @@
             </div><!-- /input-group -->
           </div><!-- /.col-lg-6 -->
         </div><!-- /.row -->
+        <div >
       </div>
+      <div id="tweet" tweetID=""></div>
 
+      <script sync src="https://platform.twitter.com/widgets.js"></script>
+       </div>
     </div> <!-- /container -->
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -98,24 +132,43 @@
        $('#search').on('click', function(e){
            e.preventDefault(); // prevent the default click action
            var q = $('#query').val();
-           if( !q.match('^#') &&  !q.match('^@')) {
-             alert('the input should start with # or @');
-             return;
+            if( !q.match('^#') &&  !q.match('^@')) {
+              alert('the input should start with # or @');
+              return;
             }
             console.log("query string "+ q)
            $.ajax({
-               url: "/twitter/search?q="+q,
+               url: '/twitter/search?h='+(q.match('^#')?"true":"false")+'&q='+q.substring(1),
                success: function (response) {
-                   alert(response);
-                   // ajax success callback
+                   console.log('https://twitter.com/'+response.user.screen_name+'/status/'+response.id_str);
+                   var tweet = document.getElementById("tweet");
+                   var id =response.id_str;
+                   tweet.setAttribute("tweetID",id);
+                   tweet.innerHTML="";
+                   twttr.widgets.createTweet(
+                    id, tweet,
+                    {
+                      conversation : 'none',    // or all
+                      cards        : 'hidden',  // or visible
+                      linkColor    : '#cc0000', // default is blue
+                      theme        : 'light'    // or dark
+                    })
+                  .then (function (el) {
+                    $body.removeClass("loading");
+                  });
                },
                error: function (response) {
-                   alert('ajax failed');
-                   // ajax error callback
+                   alert("An error occured. Search someting else. ")
+                   $body.removeClass("loading");
                },
            });
        });
+       $body = $("body");
+       $(document).on({
+         ajaxStart: function() { $body.addClass("loading");    }
+       });
    });
    </script>
+   <div class="modal"><!-- Place at bottom of page --></div>
   </body>
 </html>

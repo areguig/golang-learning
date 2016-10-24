@@ -1,4 +1,4 @@
-application: go-akli-reguig
+application: akli-reguig
 version: 1
 runtime: go
 api_version: go1
