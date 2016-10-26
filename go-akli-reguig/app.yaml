@@ -14,13 +14,9 @@ handlers:
   static_files: static/cv.html
   upload: static/cv.html
 
-- url: /ts
-  static_files: static/t_selector.html
-  upload: static/t_selector.html
-
-- url: /(.*\.(css|gif|png|jpg|ico|js|html))
+- url: /(.*\.(css|gif|png|jpg|ico|js|html|eot|svg|ttf|woff|woff2))
   static_files: static/\1
-  upload: static/(.*\.(css|gif|png|jpg|ico|js|html))
+  upload: static/(.*\.(css|gif|png|jpg|ico|js|html|eot|svg|ttf|woff|woff2))
 
 - url: /.*
   script: _go_app

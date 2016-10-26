@@ -9,7 +9,7 @@
     <meta name="author" content="akli reguig">
     <link rel="icon" href="img/favicon.ico">
 
-    <title>Home</title>
+    <title>areguig</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -18,71 +18,113 @@
     <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/navbar.css" rel="stylesheet">
+    <link href="css/justified-nav.css" rel="stylesheet">
+    <style>
+     #tweet iframe {
+       border: none !important;
+       box-shadow: none !important;
+     }
+      .modal {
+          display:    none;
+          position:   fixed;
+          z-index:    1000;
+          top:        0;
+          left:       0;
+          height:     100%;
+          width:      100%;
+          background: rgba( 255, 255, 255, .8 )
+                      url('img/loading.gif')
+                      50% 50%
+                      no-repeat;
+      }
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="js/ie-emulation-modes-warning.js"></script>
+      /* When the body has the loading class, we turn
+         the scrollbar off with overflow:hidden */
+      body.loading {
+          overflow: hidden;
+      }
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+      /* Anytime the body has the loading class, our
+         modal element will be visible */
+      body.loading .modal {
+          display: block;
+      }
+    </style>
+
   </head>
-
   <body>
 
     <div class="container">
 
-      <!-- Static navbar -->
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Home</a>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="/">Home</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/ts">Tweet Selector</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li class="dropdown-header"></li>
-                  <li><a href="#">...</a></li>
-
-                </ul>
-              </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="/cv">CV</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-      </nav>
-
-      <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <p>about:blank 20160517</p>
+      <!-- The justified navigation menu is meant for single line per list item.
+           Multiple lines will require custom code not provided by Bootstrap. -->
+      <div class="masthead">
+        <h3 class="text-muted">AREGUIG</h3>
+        <nav>
+          <ul class="nav nav-justified">
+            <li class="active"><a href="#home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
+            <li><a href="#ts"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Tweet Selecor</a></li>
+            <li><a href="#cub"><span class="glyphicon glyphicon-link" aria-hidden="true"></span> Campaign URL Builder</a></li>
+            <li><a href="#me"> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> About me</a></li>
+          </ul>
+        </nav>
       </div>
 
+      <!-- Jumbotron -->
+      <div id="home" class="jumbotron main-content" style="display: none;">
+        <h1>Hey ! </h1>
+        <p class="lead"> Check out the tweet selector </p>
+        <p><a class="btn btn-lg btn-success" href="#ts" role="button">Tweet Selector</a></p>
+      </div>
+
+      <div id="ts" class="text-center main-content" style="display: none;">
+        <div class="row">
+          <span class="jumbotron">
+            <h2>Tweet Selector </h2>
+            <p>It's the end of your twitter contest and you have to select the winner? </p>
+            <p>Enter a @handle to select by mention or a #hashtag to select by hashtag</p>
+          </span>
+          <form>
+              <div class="col-md-6 col-md-offset-3">
+                	<div class="input-group input-group-lg">
+                    <input id="query" type="text" class="form-control" placeholder="#hashtag or @handle">
+                    <span id="search" class="input-group-addon btn btn-default" type="button">Go!</span>
+                      <!--<span class="input-group-addon">@</span>-->
+                  </div>
+              </div>
+          </form>
+        </div><!-- /.row -->
+        <div >
+      </div>
+      <div id="tweet" tweetID="" class="jumbotron"></div>
+      <script sync src="https://platform.twitter.com/widgets.js"></script>
+    </div>
+
+    <!-- Jumbotron -->
+    <div id="cub" class="jumbotron main-content" style="display: none;">
+
+      <p class="lead"> Coming soon </p>
+
+    </div>
+
+    <div id="me" class="jumbotron main-content" style="display: none;">
+      <p class="lead"> //TODO  </p>
+      <p><a class="btn btn-lg btn-success" href="/cv" role="button">curriculum vitae</a></p>
+    </div>
+
+      <!-- Site footer -->
+      <footer class="footer text-center">
+        <p>&copy; 2016 Akli Reguig.</p>
+      </footer>
+
     </div> <!-- /container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-    <script src="js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/ie10-viewport-bug-workaround.js"></script>
+    <script src="js/main.js"></script>
+    <div class="modal"><!-- Place at bottom of page --></div>
   </body>
 </html>
