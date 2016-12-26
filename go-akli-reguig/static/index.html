@@ -14,6 +14,8 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" rel="stylesheet">
+
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
@@ -73,8 +75,9 @@
       <!-- Jumbotron -->
       <div id="home" class="jumbotron main-content" style="display: none;">
         <h1>Hey ! </h1>
-        <p class="lead"> Check out the tweet selector </p>
-        <p><a class="btn btn-lg btn-success" href="#ts" role="button">Tweet Selector</a></p>
+        <p class="lead">  </p>
+        <p><a class="btn btn-lg btn-primary" href="#ts" role="button">Tweet Selector</a></p>
+        <p><a class="btn btn-lg btn-primary" href="#cub" role="button">Campaign URL Builder</a></p>
       </div>
 
       <div id="ts" class="text-center main-content" style="display: none;">
@@ -84,14 +87,12 @@
             <p>It's the end of your twitter contest and you have to select the winner? </p>
             <p>Enter a @handle to select by mention or a #hashtag to select by hashtag</p>
           </span>
-          <form>
-              <div class="col-md-6 col-md-offset-3">
-                	<div class="input-group input-group-lg">
-                    <input id="query" type="text" class="form-control" placeholder="#hashtag or @handle">
-                    <span id="search" class="input-group-addon btn btn-default" type="button">Go!</span>
-                      <!--<span class="input-group-addon">@</span>-->
-                  </div>
-              </div>
+          <form class="form-inline">
+            <div class="form-group">
+                <label for="searchQuery"><span class="glyphicon glyphicon-search" aria-hidden="true"></label>
+                <input id="query" type="text" class="form-control" placeholder="#hashtag or @handle   ">
+            </div>
+            <button id="search" type="submit" class="btn btn-primary">Go!</button>
           </form>
         </div><!-- /.row -->
         <div >
@@ -101,38 +102,90 @@
     </div>
 
     <!-- Jumbotron -->
-    <div id="cub" class="jumbotron main-content" style="display: none;">
-
-      <p class="lead"> Coming soon </p>
-      <label for="basic-url">Your website URL </label>
-      <div class="input-group">
-        <span class="input-group-addon" id="basic-addon3">url*</span>
-        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+    <div id="cub" class="main-content" style="display: none;">
+      <p/>
+      <p class=""> Checkout the <a href="https://support.google.com/analytics/answer/1033863?hl=en">google documentation</a> on campaign parameters</p>
+      <div class="container">
+        <form>
+          <div id="alertMsgCub" class="alert alert-danger" role="alert" style="display: none;">Fill out the required fields : url and source</div>
+          <!-- URL -->
+          <div class="form-group row">
+            <label for="inputUrl" class="col-sm-2 col-form-label">Landing page url*</label>
+            <div class="col-sm-10">
+              <input type="url" class="form-control" id="inputUrl" placeholder="url">
+              <small id="urlHelpInline" class="text-muted">
+                The full URL (e.g. https://www.example.com)
+              </small>
+            </div>
+          </div>
+            <!-- source -->
+          <div class="form-group row">
+            <label for="inputSrc" class="col-sm-2 col-form-label">Source*</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="inputSrc" placeholder="utm_source">
+              <small id="srcHelpInline" class="text-muted">
+                The referrer: (e.g. google, newsletter)
+              </small>
+            </div>
+          </div>
+          <!-- medium -->
+        <div class="form-group row">
+          <label for="inputMedium" class="col-sm-2 col-form-label">Medium</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputMedium" placeholder="utm_medium">
+            <small id="mediumHelpInline" class="text-muted">
+              Marketing medium: (e.g. cpc, banner, email)
+            </small>
+          </div>
+        </div>
+         <!-- medium -->
+        <div class="form-group row">
+          <label for="inputCampaignName" class="col-sm-2 col-form-label">Campaign Name</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputCampaignName" placeholder="utm_campaign">
+            <small id="campaignNameHelpInline" class="text-muted">
+              Product, promo code, or slogan (e.g. spring_sale)
+            </small>
+          </div>
+        </div>
+          <div class="form-group row">
+            <label class="col-sm-2"></label>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" disabled="true"> Shorten URL
+                </label>
+                <small id="urlShortenerHelpInline" class="text-muted">
+                  (use google url shotener for long campaign URLs)
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-2"></label>
+            <div class="col-sm-10">
+                <button id="submit_cud" type="submit" class="btn btn-primary">Build campaign url</button>
+            </div>
+          </div>
+        </form>
+          <form>
+            <div id="divCubResult" class="input-group" style="display: none;"  >
+              <input id="cubResult" type="text" class="form-control"  >
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button" id="copy-button" data-clipboard-target="#cubResult"
+                    data-toggle="tooltip" data-placement="button"
+                    title="Copy to Clipboard">
+                    Copy
+                </button>
+              </span>
+            </div>
+          </form>
+        </div>
       </div>
-      <label for="basic-url">Campaign Source </label>
-      <div class="input-group">
-        <span class="input-group-addon" id="basic-addon3">utm_src*</span>
-        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-      </div>
-
-      <label for="basic-url">Campaign Medium </label>
-      <div class="input-group">
-        <span class="input-group-addon" id="basic-addon3">utm_medium</span>
-        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-      </div>
-
-      <label for="basic-url">Campaign Name </label>
-      <div class="input-group">
-        <span class="input-group-addon" id="basic-addon3">utm_name</span>
-        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-      </div>
-
-    </div>
-
 
     <div id="me" class="jumbotron main-content" style="display: none;">
       <p class="lead"> //TODO  </p>
-      <p><a class="btn btn-lg btn-success" href="/cv" role="button">curriculum vitae</a></p>
+      <p><a class="btn btn-lg btn-success" href="/cv" role="button">goto cv</a></p>
     </div>
 
       <!-- Site footer -->
@@ -145,6 +198,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.16/clipboard.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/ie10-viewport-bug-workaround.js"></script>
     <script src="js/main.js"></script>

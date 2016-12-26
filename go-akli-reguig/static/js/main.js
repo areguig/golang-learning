@@ -1,7 +1,5 @@
 $(function(){
   var newHash      = "";
-
-
   $("nav").delegate("a", "click", function() {
       window.location.hash = $(this).attr("href");
       return false;
@@ -55,5 +53,41 @@ $(function(){
    $body = $("body");
    $(document).on({
      ajaxStart: function() { $body.addClass("loading");    }
+   });
+
+      $("#submit_cud").on('click', function(e){
+        $('#copy-button').tooltip();
+        new Clipboard('#copy-button');
+        var res ='';
+        var url = $("#inputUrl").val();
+        var src = $("#inputSrc").val();
+        var medium =$("#inputMedium").val();
+        var campaignName=$("#inputCampaignName").val();
+        if(url && src){
+          res=url+"?utm_source="+src;
+          if(medium){
+            res+="&utm_medium="+medium;
+          }
+          if(campaignName){
+            res+="&utm_campaign="+campaignName;
+          }
+
+          $("#cubResult").val(encodeURI(res));
+          $("#divCubResult").show();
+        } else {
+          $("#alertMsgCub").show();
+        }
+      });
+
+    $('#copy-button').on('click', function(e) {
+      $('#copy-button').trigger('copied', ['Copied!']);
+  });
+    // Handler for updating the tooltip message.
+   $('#copy-button').bind('copied', function(event, message) {
+     $(this).attr('title', message)
+         .tooltip('fixTitle')
+         .tooltip('show')
+         .attr('title', "Copy to Clipboard")
+         .tooltip('fixTitle');
    });
 });
