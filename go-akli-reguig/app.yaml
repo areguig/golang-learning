@@ -3,20 +3,6 @@ version: 1
 runtime: go
 api_version: go1
 
-
-
 handlers:
-- url: /
-  static_files: static/index.html
-  upload: static/index.html
-
-- url: /cv
-  static_files: static/cv.html
-  upload: static/cv.html
-
-- url: /(.*\.(css|gif|png|jpg|ico|js|html|eot|svg|ttf|woff|woff2))
-  static_files: static/\1
-  upload: static/(.*\.(css|gif|png|jpg|ico|js|html|eot|svg|ttf|woff|woff2))
-
 - url: /.*
   script: _go_app
